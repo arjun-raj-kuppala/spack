@@ -26,17 +26,17 @@ class Aomp(Package):
     maintainers = ['srekolam', 'arjun-raj-kuppala', 'estewart08']
     version('3.5.0', sha256=aomp_sha)
 
-    depends_on('cmake@3.5.2', type='build')
+    depends_on('cmake@3.5.2:', type='build')
     depends_on('binutils', type='build')
-    depends_on('rocm-device-libs@3.5:', type='build', when='@3.5:')
-    depends_on('hsakmt-roct@3.5:', type='build', when='@3.5:')
-    depends_on('hsa-rocr-dev@3.5:', type='build', when='@3.5:')
-    depends_on('comgr@3.5:', type='build', when='@3.5:')
-    depends_on('mesa~llvm@18.3:', type=('build', 'link'), when='@3.5:')
-    depends_on('py-setuptools@44.1.0', when='@3.5:')
-    depends_on('python@2.7.18', when='@3.5:')
-    depends_on('perl-data-dumper', type='build', when='@3.5:')
-    depends_on('gawk', type='build', when='@3.5:')
+    depends_on('rocm-device-libs@3.5:', type='build')
+    depends_on('hsakmt-roct@3.5:', type='build')
+    depends_on('hsa-rocr-dev@3.5:', type='build')
+    depends_on('comgr@3.5:', type='build')
+    depends_on('mesa~llvm@18.3:', type=('build', 'link'))
+    depends_on('py-setuptools@44.1.0', type='build')
+    depends_on('python@2.7.18', type='build')
+    depends_on('perl-data-dumper', type='build')
+    depends_on('awk', type='build')
 
     resource(
         name='rocm-device-libs',
@@ -159,11 +159,11 @@ class Aomp(Package):
             '-Wl,-rpath,${COMGR_LIB}',
             libomptarget.format(src) + '/plugins/hsa/CMakeLists.txt')
 
-    def setup_build_environment(self, build_env):
+    def setup_build_environment(self, env):
         aomp_prefix = self.spec['aomp'].prefix
-        build_env.set('AOMP', '{0}'.format(format(aomp_prefix)))
-        build_env.set('FC', '{0}/bin/flang'.format(format(aomp_prefix)))
-        build_env.set(
+        env.set('AOMP', '{0}'.format(format(aomp_prefix)))
+        env.set('FC', '{0}/bin/flang'.format(format(aomp_prefix)))
+        env.set(
             'GFXLIST',
             'gfx700 gfx701 gfx801 gfx803 gfx900 gfx902 gfx906 gfx908')
 
