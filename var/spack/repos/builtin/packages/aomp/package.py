@@ -27,7 +27,6 @@ class Aomp(Package):
     version('3.5.0', sha256=aomp_sha)
 
     depends_on('cmake@3.5.2:3.13.4', type='build')
-    depends_on('binutils', type='build')
     depends_on('rocm-device-libs@3.5:', type='build')
     depends_on('hsakmt-roct@3.5:', type='build')
     depends_on('hsa-rocr-dev@3.5:', type='build')
@@ -42,7 +41,7 @@ class Aomp(Package):
 
     resource(
         name='rocm-device-libs',
-        url=compute_url + '/ROCm-Device-Libs/archive/roc-3.5.0.tar.gz',
+        url=compute_url + '/ROCm-Device-Libs/archive/rocm-3.5.0.tar.gz',
         sha256=devlib_sha,
         expand=True,
         destination='aomp-dir',
